@@ -1,0 +1,37 @@
+@startuml context_smart_home
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+title PropDevelopment — Контекст интеграции «Умный дом» (домофон/шлагбаум)
+
+Person(owner, "Собственник/Житель", "Пользуется мобильным приложением PropDevelopment")
+
+System_Boundary(propdev, "PropDevelopment") {
+  System(tenant_showcase, "Витрина сервисов для собственников", "Mobile app (iOS/Android)\nЛК собственника: услуги, уведомления, умный дом")
+  System(auth_service_1, "auth-service-1", "Keycloak (OIDC/OAuth2)\nАутентификация внешних пользователей")
+  System(tenant_core_app, "tenant-core-app", "Kotlin/Spring Boot\nБизнес-API собственника, проверка прав, журналирование действий")
+  System(smart_home_adapter, "smart-home-adapter-app", "Kotlin/Spring Boot\nЕдиная точка интеграции с партнёром: команды + события, валидация контрактов")
+}
+
+System_Ext(push_provider, "FCM/APNS", "Push notifications\nДоставка push-уведомлений на мобильные устройства")
+System_Ext(smart_home_partner, "Платформа партнёра «Умный дом»\nExternal platform", "API домофона/шлагбаума, распознавание (лицо/номера)")
+System_Ext(intercom, "Интеллектуальный домофон", "IoT device\nДверь/камера/вызов; открытие по команде; событие распознавания лица")
+System_Ext(barrier, "Интеллектуальный шлагбаум", "IoT device\nКамера/шлагбаум; распознавание номера; открытие по команде")
+
+Rel(owner, tenant_showcase, "Управляет устройствами и получает события", "HTTPS")
+Rel(tenant_showcase, auth_service_1, "Логин/токен", "OIDC/OAuth2")
+Rel(tenant_showcase, tenant_core_app, "Команды/статусы/история", "REST/WS (HTTPS)")
+
+Rel(tenant_core_app, smart_home_adapter, "Команды умного дома, запрос статусов", "REST (mTLS внутри периметра)")
+Rel(smart_home_adapter, smart_home_partner, "Команды/запросы", "REST/gRPC (mTLS + OAuth2 client-credentials)")
+Rel(smart_home_partner, smart_home_adapter, "События (webhooks)", "HTTPS (mTLS + подпись запроса)")
+
+Rel(tenant_core_app, push_provider, "Отправка push", "HTTPS")
+Rel(push_provider, tenant_showcase, "Push-уведомления", "Vendor push channel")
+
+Rel(smart_home_partner, intercom, "Управление/события", "Vendor IoT protocol")
+Rel(smart_home_partner, barrier, "Управление/события", "Vendor IoT protocol")
+
+SHOW_LEGEND()
+
+@enduml
