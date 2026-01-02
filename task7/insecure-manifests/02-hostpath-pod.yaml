@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-hostpath
+  namespace: audit-zone
+spec:
+  volumes:
+    - name: host
+      hostPath:
+        path: /var/log
+        type: Directory
+  containers:
+    - name: pause
+      image: registry.k8s.io/pause:3.9
+      volumeMounts:
+        - name: host
+          mountPath: /host-logs

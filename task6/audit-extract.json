@@ -1,0 +1,970 @@
+{
+  "events": [
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:02.746347+00:00",
+      "user": "system:apiserver",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "::1"
+      ],
+      "userAgent": "kube-apiserver/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?limit=500&resourceVersion=0",
+      "responseCode": null,
+      "audited_by_policyRule": "0219d6dd-928c-4e5f-9e8f-65ab728bb5d3",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:02.746347+00:00",
+      "user": "system:apiserver",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "::1"
+      ],
+      "userAgent": "kube-apiserver/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?limit=500&resourceVersion=0",
+      "responseCode": 200,
+      "audited_by_policyRule": "0219d6dd-928c-4e5f-9e8f-65ab728bb5d3",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:02.750628+00:00",
+      "user": "system:apiserver",
+      "impersonatedUser": null,
+      "verb": "watch",
+      "sourceIPs": [
+        "::1"
+      ],
+      "userAgent": "kube-apiserver/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?allowWatchBookmarks=true&resourceVersion=2&timeout=7m11s&timeoutSeconds=431&watch=true",
+      "responseCode": null,
+      "audited_by_policyRule": "6b2a46ee-1e2c-4923-acdc-561a0c28ad6b",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseStarted",
+      "ts": "2025-09-08T00:33:02.750628+00:00",
+      "user": "system:apiserver",
+      "impersonatedUser": null,
+      "verb": "watch",
+      "sourceIPs": [
+        "::1"
+      ],
+      "userAgent": "kube-apiserver/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?allowWatchBookmarks=true&resourceVersion=2&timeout=7m11s&timeoutSeconds=431&watch=true",
+      "responseCode": 200,
+      "audited_by_policyRule": "6b2a46ee-1e2c-4923-acdc-561a0c28ad6b",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:03.841883+00:00",
+      "user": "system:apiserver",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "::1"
+      ],
+      "userAgent": "kube-apiserver/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "clusterrolebindings",
+      "subresource": null,
+      "apiGroup": "rbac.authorization.k8s.io",
+      "name": "cluster-admin",
+      "requestURI": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+      "responseCode": 201,
+      "audited_by_policyRule": "5f9893dd-a7e5-4f80-b3f3-3efbf1fc68d3",
+      "severity": "critical",
+      "tags": [
+        "cluster-admin-binding"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:04.254667+00:00",
+      "user": "kubernetes-super-admin",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubeadm/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "clusterrolebindings",
+      "subresource": null,
+      "apiGroup": "rbac.authorization.k8s.io",
+      "name": "kubeadm:cluster-admins",
+      "requestURI": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "4926ed27-877f-4aae-a550-24246bdc7ea0",
+      "severity": "critical",
+      "tags": [
+        "cluster-admin-binding"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:04.280109+00:00",
+      "user": "kubernetes-admin",
+      "impersonatedUser": null,
+      "verb": "get",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubeadm/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": "kube-system",
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": "bootstrap-token-x4z6tq",
+      "requestURI": "/api/v1/namespaces/kube-system/secrets/bootstrap-token-x4z6tq?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "54ebe798-845e-49a2-8153-d7f42b8771b9",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:04.280109+00:00",
+      "user": "kubernetes-admin",
+      "impersonatedUser": null,
+      "verb": "get",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubeadm/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": "kube-system",
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": "bootstrap-token-x4z6tq",
+      "requestURI": "/api/v1/namespaces/kube-system/secrets/bootstrap-token-x4z6tq?timeout=10s",
+      "responseCode": 404,
+      "audited_by_policyRule": "54ebe798-845e-49a2-8153-d7f42b8771b9",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:04.752909+00:00",
+      "user": "system:kube-controller-manager",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/shared-informers",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?limit=500&resourceVersion=0",
+      "responseCode": null,
+      "audited_by_policyRule": "54a262cd-1d5c-4c1d-9001-4cfbe1ffc9c4",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:04.752909+00:00",
+      "user": "system:kube-controller-manager",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/shared-informers",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?limit=500&resourceVersion=0",
+      "responseCode": 200,
+      "audited_by_policyRule": "54a262cd-1d5c-4c1d-9001-4cfbe1ffc9c4",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:04.753782+00:00",
+      "user": "system:kube-controller-manager",
+      "impersonatedUser": null,
+      "verb": "watch",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/shared-informers",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?allowWatchBookmarks=true&resourceVersion=254&timeout=5m28s&timeoutSeconds=328&watch=true",
+      "responseCode": null,
+      "audited_by_policyRule": "ca40d555-8cc6-4fc7-9f79-84a146b65a64",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseStarted",
+      "ts": "2025-09-08T00:33:04.753782+00:00",
+      "user": "system:kube-controller-manager",
+      "impersonatedUser": null,
+      "verb": "watch",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/shared-informers",
+      "namespace": null,
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/secrets?allowWatchBookmarks=true&resourceVersion=254&timeout=5m28s&timeoutSeconds=328&watch=true",
+      "responseCode": 200,
+      "audited_by_policyRule": "ca40d555-8cc6-4fc7-9f79-84a146b65a64",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:05.729722+00:00",
+      "user": "minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "::1"
+      ],
+      "userAgent": "kubectl/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "clusterrolebindings",
+      "subresource": null,
+      "apiGroup": "rbac.authorization.k8s.io",
+      "name": "minikube-rbac",
+      "requestURI": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings?fieldManager=kubectl-create&fieldValidation=Strict",
+      "responseCode": 201,
+      "audited_by_policyRule": "ddb25f24-d344-4c96-b565-e0a87e77aeeb",
+      "severity": "critical",
+      "tags": [
+        "cluster-admin-binding"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:09.463099+00:00",
+      "user": "system:serviceaccount:kube-system:certificate-controller",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/system:serviceaccount:kube-system:certificate-controller",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": null,
+      "audited_by_policyRule": "1fb03ad6-18aa-4c32-961d-e9329b3157d9",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:09.463099+00:00",
+      "user": "system:serviceaccount:kube-system:certificate-controller",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/system:serviceaccount:kube-system:certificate-controller",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": 201,
+      "audited_by_policyRule": "1fb03ad6-18aa-4c32-961d-e9329b3157d9",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:10.359119+00:00",
+      "user": "system:serviceaccount:kube-system:daemon-set-controller",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kube-controller-manager/v1.33.1 (linux/arm64) kubernetes/8adc0f0/system:serviceaccount:kube-system:daemon-set-controller",
+      "namespace": "kube-system",
+      "resource": "pods",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/namespaces/kube-system/pods",
+      "responseCode": 201,
+      "audited_by_policyRule": "b3b7d14e-00c0-4326-94a1-f9b7e848c788",
+      "severity": "high",
+      "tags": [
+        "privileged-pod"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:18.399040+00:00",
+      "user": "system:node:minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubelet/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": null,
+      "audited_by_policyRule": "47f1eb8d-5fd3-45b1-bb69-933cbd4ca128",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:18.399040+00:00",
+      "user": "system:node:minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubelet/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": 201,
+      "audited_by_policyRule": "47f1eb8d-5fd3-45b1-bb69-933cbd4ca128",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:25.870754+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "b4da4a93-da2f-44ea-aeb0-b95ada4e252c",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:25.870754+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "b4da4a93-da2f-44ea-aeb0-b95ada4e252c",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:26.856998+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "1962fa39-9dc8-4452-97f5-8b096a7fe4c2",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:26.856998+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "1962fa39-9dc8-4452-97f5-8b096a7fe4c2",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:30.026487+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": null,
+      "resource": "selfsubjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/selfsubjectaccessreviews",
+      "responseCode": null,
+      "audited_by_policyRule": "540796ad-de2b-4966-8b39-b2766bae0ad9",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:30.026487+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": "system:serviceaccount:secure-ops:monitoring",
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": null,
+      "resource": "selfsubjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/selfsubjectaccessreviews",
+      "responseCode": 201,
+      "audited_by_policyRule": "540796ad-de2b-4966-8b39-b2766bae0ad9",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:30.061099+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": "kube-system",
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/namespaces/kube-system/secrets?limit=500",
+      "responseCode": null,
+      "audited_by_policyRule": "004c6a33-0dd1-4a03-9987-451f99e87a99",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:30.061099+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": "kube-system",
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/namespaces/kube-system/secrets?limit=500",
+      "responseCode": 200,
+      "audited_by_policyRule": "004c6a33-0dd1-4a03-9987-451f99e87a99",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:30.098483+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": null,
+      "verb": "list",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": "kube-system",
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/namespaces/kube-system/secrets?limit=500",
+      "responseCode": null,
+      "audited_by_policyRule": "ec86c555-0455-4a59-827a-02b69df4d4ad",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:30.098483+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": "system:serviceaccount:secure-ops:monitoring",
+      "verb": "list",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": "kube-system",
+      "resource": "secrets",
+      "subresource": null,
+      "apiGroup": null,
+      "name": null,
+      "requestURI": "/api/v1/namespaces/kube-system/secrets?limit=500",
+      "responseCode": 403,
+      "audited_by_policyRule": "ec86c555-0455-4a59-827a-02b69df4d4ad",
+      "severity": "medium",
+      "tags": [
+        "secrets-access"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:30.176016+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": "secure-ops",
+      "resource": "pods",
+      "subresource": null,
+      "apiGroup": null,
+      "name": "privileged-pod",
+      "requestURI": "/api/v1/namespaces/secure-ops/pods?fieldManager=kubectl-client-side-apply&fieldValidation=Strict",
+      "responseCode": 201,
+      "audited_by_policyRule": "1d950ffb-0aad-4089-be23-98f9d49180b1",
+      "severity": "high",
+      "tags": [
+        "privileged-pod"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:33:30.254322+00:00",
+      "user": "system:node:minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubelet/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": null,
+      "audited_by_policyRule": "aba040a3-e055-4963-87c5-2c7a5f6879a8",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:30.254322+00:00",
+      "user": "system:node:minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubelet/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": 201,
+      "audited_by_policyRule": "aba040a3-e055-4963-87c5-2c7a5f6879a8",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:33:30.355901+00:00",
+      "user": "minikube-user",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.32.2 (darwin/arm64) kubernetes/67a30c0",
+      "namespace": "secure-ops",
+      "resource": "rolebindings",
+      "subresource": null,
+      "apiGroup": "rbac.authorization.k8s.io",
+      "name": "escalate-binding",
+      "requestURI": "/apis/rbac.authorization.k8s.io/v1/namespaces/secure-ops/rolebindings?fieldManager=kubectl-client-side-apply&fieldValidation=Strict",
+      "responseCode": 201,
+      "audited_by_policyRule": "55daf6b2-a3cc-44b8-b1d5-c022b2993778",
+      "severity": "critical",
+      "tags": [
+        "cluster-admin-binding"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:34:09.931656+00:00",
+      "user": "system:node:minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubelet/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": null,
+      "audited_by_policyRule": "73ac2c08-6ee9-4ec3-998e-5d448faf83a3",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:34:09.931656+00:00",
+      "user": "system:node:minikube",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "192.168.49.2"
+      ],
+      "userAgent": "kubelet/v1.33.1 (linux/arm64) kubernetes/8adc0f0",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews",
+      "responseCode": 201,
+      "audited_by_policyRule": "73ac2c08-6ee9-4ec3-998e-5d448faf83a3",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:34:26.861125+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "26c8a489-4c15-43bb-97a3-d8983b1e6fd2",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:34:26.861125+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "26c8a489-4c15-43bb-97a3-d8983b1e6fd2",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:34:26.864353+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "c7f92aa1-4b26-4ee3-88b6-2bcc8dbaca91",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:34:26.864353+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "c7f92aa1-4b26-4ee3-88b6-2bcc8dbaca91",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:35:26.869881+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "5c9ea45c-d307-46d5-960c-7b0950d39f2c",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "RequestReceived",
+      "ts": "2025-09-08T00:35:26.869888+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": null,
+      "audited_by_policyRule": "6f4a69d4-feb7-46e8-8e9c-8c1ec285a088",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:35:26.869881+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "5c9ea45c-d307-46d5-960c-7b0950d39f2c",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    },
+    {
+      "stage": "ResponseComplete",
+      "ts": "2025-09-08T00:35:26.869888+00:00",
+      "user": "system:serviceaccount:kube-system:metrics-server",
+      "impersonatedUser": null,
+      "verb": "create",
+      "sourceIPs": [
+        "10.244.0.3"
+      ],
+      "userAgent": "metrics-server/v0.7.2 (linux/arm64) kubernetes/0969601",
+      "namespace": null,
+      "resource": "subjectaccessreviews",
+      "subresource": null,
+      "apiGroup": "authorization.k8s.io",
+      "name": null,
+      "requestURI": "/apis/authorization.k8s.io/v1/subjectaccessreviews?timeout=10s",
+      "responseCode": 201,
+      "audited_by_policyRule": "6f4a69d4-feb7-46e8-8e9c-8c1ec285a088",
+      "severity": "low",
+      "tags": [
+        "auth-can-i"
+      ]
+    }
+  ]
+}

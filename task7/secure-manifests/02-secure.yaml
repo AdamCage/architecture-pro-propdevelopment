@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-secure-no-hostpath
+  namespace: audit-zone
+spec:
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsNonRoot: true
+    runAsUser: 1000
+  volumes:
+    - name: work
+      emptyDir: {}
+  containers:
+    - name: app
+      image: registry.k8s.io/pause:3.9
+      volumeMounts:
+        - name: work
+          mountPath: /data
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
