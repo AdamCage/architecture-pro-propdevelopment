@@ -1,0 +1,133 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 80
+
+Person(accountant, "Бухгалтер", "Ведёт бухгалтерский учёт")
+Person(customer, "Клиент", "Клиент")
+Person(owner, "Собственник", "Клиент")
+Person(manager, "Менеджер", "Работает с клиентами и объектами недвижимости, администрирует онлайн-сделки")
+Person(business_analyst, "Бизнес-аналитик", "Оптимизирует процессы и развивает прикладные бизнес-системы. Администрирует системы")
+Person(bi_analyst, "Аналитик BI", "Анализирует данные и готовит отчётность")
+
+System_Ext(hcs_provider, "Поставщик ресурсов ЖКХ", "Поставщик услуг/начислений ЖКХ")
+System_Ext(payment_system, "Платёжная система", "Провайдер онлайн-платежей")
+System_Ext(reg_orgs, "Государственные регистрационные органы", "Отвечают за регистрационные действия с объектами недвижимости")
+
+Container(firewall_owner, "Firewall", "Network Firewall", "Межсетевой экран")
+Container(firewall_client, "Firewall", "Network Firewall", "Межсетевой экран")
+
+System_Boundary(propdev, "PropDevelopment") {
+
+  System_Boundary(accounting, "Контур бухгалтерии") {
+
+        Container(accountant_service_1, "accountant-service-1", "Keycloak", "Система бухгалтерского учёта")
+        ContainerDb(auth_db_1, "auth-db-1", "PostgreSQL", "База данных сервиса аутентификации покупателей")
+        Container(ad_apps, "Active Directory", "MS Active Directory", "Служба каталогов, которая обслуживает прикладные бизнес-системы и системы обработки данных")
+
+        Rel(accountant, accountant_service_1, "Использует")
+        Rel(accountant_service_1, ad_apps, "Аутентификация")
+        Rel(accountant_service_1, auth_db_1, "")
+    
+    }
+
+    System_Boundary(client_services, "Группа сервисов для клиентов") {
+
+        Container(sales_showcase, "Витрина продаж", "JavaScript, React", "Витрина для подбора и бронирования объектов недвижимости")
+
+        Container(client_crm_app, "client-crm-app", "e.g. SpringBoot, ElasticSearch, Container: Dynamics CRM", "Система управления клиентскими данными")
+        ContainerDb(crm_db_mssql, "crm-db", "MSSQL", "База данных системы CRM")
+
+        Container(client_mart_app, "client-mart-app", "Container: Kotlin, SpringBoot", "Приложение для: - предоставления информации об объектах недвижимости, - проведения онлайн-сделок")
+        ContainerDb(client_mart_db, "client-mart-db", "PostgreSQL", "База данных для хранения информации об объектах недвижимости и сделкам по ним")
+
+        Container(client_mart_estate_app, "client-mart-estate-app", "Container: Kotlin, SpringBoot", "Приложение для управления информацией об объектах недвижимости")
+        ContainerDb(client_mart_estate_db, "client-mart-estate-db", "PostgreSQL", "База данных объектов недвижимости")
+
+        Container(client_tour_app, "client-tour-app", "Container: Kotlin, SpringBoot", "Приложение для проведения 3D-тура по объекту недвижимости (онлайн-тур)")
+        ContainerDb(client_tour_db, "client-tour-db", "PostgreSQL", "База данных проведения онлайн-тура")
+
+    }
+
+    System_Boundary(tenant_services, "Группа сервисов ЖКУ") {
+
+        Container(tenant_showcase, "Витрина сервисов для собственников", "Mobile app (iOS, Android)", "Мобильные приложения для собственников")
+
+        Container(tenant_core_app, "tenant-core-app", "Container: Kotlin, SpringBoot", "Приложение для предоставления услуг собственникам")
+        ContainerDb(tenant_core_db, "tenant-core-db", "PostgreSQL", "База данных услуг ЖКХ по собственникам")
+
+        Container(crm_app, "CRM", "Container: Kotlin, Spring Boot", "Система управления данными собственников")
+        ContainerDb(crm_tenant_db, "crm-tenant-db", "PostgreSQL", "База данных CRM по собственникам")
+    }
+
+    System_Boundary(dwh_boundary, "DWH / Контур данных") {
+        Container(dwh_gp, "Хранилище данных", "Greenplum", "Единое хранилище данных для всех систем компании")
+        ContainerDb(dwh_s3, "DWH Хранилище", "S3", "Физическое хранилище данных DWH")
+    }
+
+    Container(ad_fin, "Active Directory", "MS Active Directory", "Служба каталогов, которая обслуживает финансовые сервисы")
+
+    Container(auth_service_1, "auth-service-1", "Keycloak", "Сервис аутентификации покупателей")
+    ContainerDb(auth_db_1_client, "auth-db-1", "PostgreSQL", "База данных сервиса аутентификации покупателей")
+
+    Rel(customer, firewall_client, "Доступ к сервисам")
+    Rel(firewall_client, sales_showcase, "", "HTTPS")
+
+    Rel(sales_showcase, auth_service_1, "Регистрация / аутентификация", "REST")
+    Rel(auth_service_1, auth_db_1_client, "", "JDBC")
+
+    Rel(sales_showcase, client_crm_app, "Регистрация клиента, карточка, профиль", "REST")
+    Rel(client_crm_app, crm_db_mssql, "", "JDBC")
+
+    Rel(sales_showcase, client_mart_app, "", "REST")
+    Rel(client_mart_app, client_mart_db, "", "JDBC")
+
+    Rel(sales_showcase, client_mart_estate_app, "Получить данные по объектам недвижимости", "REST")
+    Rel(client_mart_estate_app, client_mart_estate_db, "", "JDBC")
+
+    Rel(client_crm_app, client_mart_app, "Публикация каталога объектов", "Kafka")
+
+    Rel(sales_showcase, client_tour_app, "", "")
+    Rel(client_crm_app, client_tour_app, "", "")
+    Rel(client_tour_app, client_tour_db, "", "JDBC")
+
+    Rel(client_mart_app, reg_orgs, "СМЭВ", "SOAP")
+
+    Rel(owner, firewall_owner, "Доступ к сервисам")
+    Rel(firewall_owner, tenant_showcase, "", "HTTPS")
+
+    Rel(tenant_showcase, auth_service_1, "Регистрация / аутентификация", "REST")
+    Rel(tenant_showcase, tenant_core_app, "", "REST, WS")
+    Rel(tenant_showcase, crm_app, "", "REST")
+
+    Rel(tenant_core_app, tenant_core_db, "", "JDBC")
+    Rel(crm_app, crm_tenant_db, "", "JDBC")
+
+    Rel(tenant_core_app, crm_app, "Получение клиентских данных", "REST")
+    Rel(tenant_core_app, hcs_provider, "", "")
+    Rel(tenant_core_app, payment_system, "", "")
+
+    Rel(manager, propdev, "")
+    Rel(business_analyst, propdev, "")
+    Rel(bi_analyst, dwh_gp, "")
+
+    Rel(client_crm_app, ad_fin, "Аутентификация менеджеров")
+    Rel(crm_app, ad_fin, "Аутентификация менеджеров")
+
+    Rel(dwh_gp, dwh_s3, "")
+
+    Rel(dwh_gp, ad_fin, "Аутентификация бизнес-аналитика")
+
+    Rel(client_mart_estate_db, dwh_gp, "Передача сырых данных", "CDC")
+    Rel(crm_db_mssql, dwh_gp, "Передача сырых данных", "CDC")
+    Rel(client_mart_db, dwh_gp, "Передача сырых данных", "CDC")
+    Rel(tenant_core_db, dwh_gp, "Передача сырых данных", "CDC")
+    Rel(crm_tenant_db, dwh_gp, "Передача сырых данных", "CDC")
+
+}
+
+@enduml
