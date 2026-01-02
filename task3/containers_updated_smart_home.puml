@@ -1,0 +1,147 @@
+@startuml containers_updated_smart_home
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 80
+
+title PropDevelopment — Диаграмма контейнеров (добавлены интеграции «Умный дом»)
+
+Person(accountant, "Бухгалтер", "Ведёт бухгалтерский учёт")
+Person(customer, "Клиент", "Покупатель недвижимости")
+Person(owner, "Собственник", "Житель/собственник")
+Person(manager, "Менеджер", "Работает с клиентами и объектами недвижимости, администрирует онлайн-сделки")
+Person(business_analyst, "Бизнес-аналитик", "Оптимизирует процессы и развивает прикладные бизнес-системы")
+Person(bi_analyst, "Аналитик BI", "Анализирует данные и готовит отчётность")
+
+System_Ext(hcs_provider, "Поставщик ресурсов ЖКХ", "Поставщик услуг/начислений ЖКХ")
+System_Ext(payment_system, "Платёжная система", "Провайдер онлайн-платежей")
+System_Ext(reg_orgs, "Государственные регистрационные органы", "Регистрационные действия с объектами недвижимости")
+
+' Новое: внешняя платформа умного дома
+System_Ext(smart_home_partner, "Партнёрская платформа «Умный дом»", "External platform", "Домофон/шлагбаум, распознавание (лицо/номера), события")
+
+System_Ext(push_provider, "FCM/APNS", "Push notifications", "Доставка push-уведомлений на мобильные устройства")
+
+Container(firewall_owner, "Firewall", "Network Firewall", "Межсетевой экран (контур собственников)")
+Container(firewall_client, "Firewall", "Network Firewall", "Межсетевой экран (контур клиентов)")
+
+System_Boundary(propdev, "PropDevelopment") {
+
+  System_Boundary(accounting, "Контур бухгалтерии") {
+    Container(accountant_service_1, "accountant-service-1", "Keycloak", "Система бухгалтерского учёта")
+    ContainerDb(auth_db_1, "auth-db-1", "PostgreSQL", "База данных сервиса аутентификации покупателей")
+    Container(ad_apps, "Active Directory", "MS Active Directory", "Служба каталогов для прикладных бизнес-систем/данных")
+
+    Rel(accountant, accountant_service_1, "Использует")
+    Rel(accountant_service_1, ad_apps, "Аутентификация")
+    Rel(accountant_service_1, auth_db_1, "Хранение данных", "JDBC")
+  }
+
+  System_Boundary(client_services, "Группа сервисов для клиентов") {
+
+    Container(sales_showcase, "Витрина продаж", "JavaScript, React", "Подбор и бронирование объектов недвижимости")
+
+    Container(client_crm_app, "client-crm-app", "e.g. SpringBoot/Dynamics CRM", "Управление клиентскими данными")
+    ContainerDb(crm_db_mssql, "crm-db", "MSSQL", "База данных CRM")
+
+    Container(client_mart_app, "client-mart-app", "Kotlin, SpringBoot", "Онлайн-сделки и сведения об объектах/сделках")
+    ContainerDb(client_mart_db, "client-mart-db", "PostgreSQL", "Данные объектов и сделок")
+
+    Container(client_mart_estate_app, "client-mart-estate-app", "Kotlin, SpringBoot", "Управление данными о недвижимости")
+    ContainerDb(client_mart_estate_db, "client-mart-estate-db", "PostgreSQL", "База данных объектов недвижимости")
+
+    Container(client_tour_app, "client-tour-app", "Kotlin, SpringBoot", "3D-тур по объекту недвижимости")
+    ContainerDb(client_tour_db, "client-tour-db", "PostgreSQL", "Данные онлайн-туров")
+
+    Rel(sales_showcase, client_crm_app, "Регистрация/профиль", "REST (HTTPS)")
+    Rel(client_crm_app, crm_db_mssql, "Хранение", "JDBC")
+
+    Rel(sales_showcase, client_mart_app, "Онлайн-сделка", "REST (HTTPS)")
+    Rel(client_mart_app, client_mart_db, "Хранение", "JDBC")
+
+    Rel(sales_showcase, client_mart_estate_app, "Данные по объектам", "REST (HTTPS)")
+    Rel(client_mart_estate_app, client_mart_estate_db, "Хранение", "JDBC")
+
+    Rel(sales_showcase, client_tour_app, "Онлайн-тур", "REST (HTTPS)")
+    Rel(client_tour_app, client_tour_db, "Хранение", "JDBC")
+
+    Rel(client_crm_app, client_mart_app, "Публикация каталога объектов", "Kafka")
+
+    Rel(client_mart_app, reg_orgs, "СМЭВ", "SOAP")
+  }
+
+  System_Boundary(tenant_services, "Группа сервисов ЖКУ") {
+
+    Container(tenant_showcase, "Витрина сервисов для собственников", "Mobile app (iOS/Android)", "Личный кабинет собственника")
+    Container(tenant_core_app, "tenant-core-app", "Kotlin, SpringBoot", "Услуги собственникам, бизнес-API, авторизация действий")
+    ContainerDb(tenant_core_db, "tenant-core-db", "PostgreSQL", "База данных услуг ЖКХ и операций собственников")
+
+    Container(crm_app, "CRM", "Kotlin, Spring Boot", "Данные собственников (профили/объекты/контакты)")
+    ContainerDb(crm_tenant_db, "crm-tenant-db", "PostgreSQL", "База данных CRM по собственникам")
+
+    ' Новое: единый сервис-адаптер внешних интеграций «Умный дом»
+    Container(smart_home_adapter, "smart-home-adapter-app", "Kotlin, SpringBoot", "Единая точка интеграции с партнёром: команды + события, валидация контрактов, журналирование")
+    ContainerDb(smart_home_db, "smart-home-db", "PostgreSQL", "Минимально необходимые данные: привязки устройств, права доступа, события (без хранения биометрии)")
+
+    Rel(tenant_showcase, tenant_core_app, "Услуги/команды/статусы", "REST, WS (HTTPS)")
+    Rel(tenant_showcase, crm_app, "Профиль/объекты", "REST (HTTPS)")
+
+    Rel(tenant_core_app, tenant_core_db, "Хранение", "JDBC")
+    Rel(crm_app, crm_tenant_db, "Хранение", "JDBC")
+
+    Rel(tenant_core_app, crm_app, "Получение клиентских данных", "REST")
+    Rel(tenant_core_app, hcs_provider, "Начисления/услуги", "API (HTTPS)")
+    Rel(tenant_core_app, payment_system, "Онлайн-оплата", "API (HTTPS)")
+
+    ' Новое: интеграция умного дома только через адаптер
+    Rel(tenant_core_app, smart_home_adapter, "Команды (открыть/разрешить/отозвать), запрос статусов", "REST (mTLS внутри периметра)")
+    Rel(smart_home_adapter, smart_home_db, "Хранение", "JDBC")
+    Rel(smart_home_adapter, smart_home_partner, "Команды/запросы", "REST/gRPC (mTLS + OAuth2 client-credentials)")
+    Rel(smart_home_partner, smart_home_adapter, "События (webhooks)", "HTTPS (mTLS + подпись запроса)")
+
+    ' Уведомления
+    Rel(tenant_core_app, push_provider, "Push-уведомления о событиях умного дома/ЖКУ", "HTTPS")
+  }
+
+  System_Boundary(dwh_boundary, "DWH / Контур данных") {
+    Container(dwh_gp, "Хранилище данных", "Greenplum", "Единое хранилище данных для всех систем компании")
+    ContainerDb(dwh_s3, "DWH Хранилище", "S3", "Физическое хранилище данных DWH")
+    Rel(dwh_gp, dwh_s3, "Хранение", "")
+  }
+
+  Container(ad_fin, "Active Directory", "MS Active Directory", "Служба каталогов для финансовых сервисов/BI")
+  Container(auth_service_1, "auth-service-1", "Keycloak", "Сервис аутентификации покупателей/собственников")
+  ContainerDb(auth_db_1_client, "auth-db-1", "PostgreSQL", "База данных сервиса аутентификации")
+
+  Rel(customer, firewall_client, "Доступ к сервисам", "HTTPS")
+  Rel(firewall_client, sales_showcase, "Доступ к витрине продаж", "HTTPS")
+
+  Rel(owner, firewall_owner, "Доступ к сервисам", "HTTPS")
+  Rel(firewall_owner, tenant_showcase, "Доступ к мобильному приложению/API", "HTTPS")
+
+  Rel(sales_showcase, auth_service_1, "Регистрация/аутентификация", "REST")
+  Rel(auth_service_1, auth_db_1_client, "Хранение", "JDBC")
+
+  Rel(tenant_showcase, auth_service_1, "Регистрация/аутентификация", "REST")
+
+  Rel(manager, propdev, "Работа в прикладных системах", "")
+  Rel(business_analyst, propdev, "Администрирование/развитие", "")
+  Rel(bi_analyst, dwh_gp, "Аналитика/отчётность", "")
+
+  Rel(client_crm_app, ad_fin, "Аутентификация менеджеров", "LDAP/Kerberos")
+  Rel(crm_app, ad_fin, "Аутентификация менеджеров", "LDAP/Kerberos")
+  Rel(dwh_gp, ad_fin, "Аутентификация бизнес-аналитика", "LDAP/Kerberos")
+
+  ' CDC в DWH (включая новый smart-home-db)
+  Rel(client_mart_estate_db, dwh_gp, "Передача сырых данных", "CDC")
+  Rel(crm_db_mssql, dwh_gp, "Передача сырых данных", "CDC")
+  Rel(client_mart_db, dwh_gp, "Передача сырых данных", "CDC")
+  Rel(tenant_core_db, dwh_gp, "Передача сырых данных", "CDC")
+  Rel(crm_tenant_db, dwh_gp, "Передача сырых данных", "CDC")
+  Rel(smart_home_db, dwh_gp, "Передача событий/привязок (минимизация, без биометрии)", "CDC/ETL")
+}
+
+@enduml
